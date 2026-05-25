@@ -53,26 +53,11 @@ PRIVATE_KEY=<key> RPC_URL=<rpc> \
 
 # 记录部署地址，更新 .env
 PRIVATE_TOKEN_ADDRESS=<deployed-address>
-```
 
-### 4. 测试 Mint
 
-```bash
-cd ../../apps/privacy-transfer
-RPC_URL=<rpc> ALPHA_TRION_RPC_URL=http://34.84.204.187:38081 \
-  DECRYPTION_RPC_URL=34.84.204.187:38085 PRIVATE_KEY=<key> \
-  npx hardhat run scripts/test-mint.ts --network sepolia
-```
 
-### 5. 测试 Transfer
-
-```bash
-RPC_URL=<rpc> ALPHA_TRION_RPC_URL=http://34.84.204.187:38081 \
-  DECRYPTION_RPC_URL=34.84.204.187:38085 PRIVATE_KEY=<key> \
-  npx hardhat run scripts/test-transfer.ts --network sepolia
-```
-
-## 已部署的系统合约 (Sepolia)
+## 已部署的系统合约 (Pharos Testnet) 
+合约/服务如果重新部署后需更新相关地址
 
 | 合约 | 地址 |
 |------|------|
@@ -85,16 +70,3 @@ RPC_URL=<rpc> ALPHA_TRION_RPC_URL=http://34.84.204.187:38081 \
 | AlphaTrion | `http://34.84.204.187:38081` |
 | Decryption | `34.84.204.187:38085` |
 
-## 版本说明
-
-当前版本：**B (纯隐私版)**
-
-- 用户完全控制谁能查看余额
-- 无监管白名单机制
-- 适合纯隐私场景
-
-后续版本：**A (合规版)**
-
-- 添加 RegulatoryWhitelist
-- 监管机构可以查看所有用户余额
-- 用户不能撤销监管权限
