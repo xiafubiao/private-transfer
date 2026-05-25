@@ -1,0 +1,362 @@
+@import "tailwindcss";
+
+/* ==================== 颜色系统（升级版） ==================== */
+:root {
+  /* 背景层级 */
+  --bg-primary: #0B0B0D;
+  --bg-secondary: #121317;
+  --card-bg: #1A1C21;
+  --input-bg: #14161A;
+
+  /* 主色（品牌橙升级版） */
+  --accent-primary: #FF9F2F;
+  --accent-light: #FFB347;
+  --accent-dark: #FF8A00;
+
+  /* 旧变量兼容 */
+  --orange: #FF9F2F;
+  --orange-light: #FFB347;
+  --orange-dark: #FF8A00;
+  --black: #0B0B0D;
+  --black-light: #121317;
+  --black-medium: #1A1C21;
+  --black-border: rgba(255,255,255,0.06);
+
+  /* 文本层级 */
+  --text-primary: #FFFFFF;
+  --text-secondary: #A0A4AB;
+  --text-tertiary: #6C727F;
+
+  /* 旧变量兼容 */
+  --white: #FFFFFF;
+  --gray: #A0A4AB;
+  --gray-light: #FFFFFF;
+  --gray-dark: #6C727F;
+
+  /* 状态色 */
+  --success: #00C853;
+  --error: #FF3D00;
+}
+
+@theme inline {
+  --color-orange: var(--orange);
+  --color-orange-light: var(--orange-light);
+  --color-orange-dark: var(--orange-dark);
+  --color-black: var(--black);
+  --color-black-light: var(--black-light);
+  --color-black-medium: var(--black-medium);
+  --color-black-border: var(--black-border);
+  --color-white: var(--white);
+  --color-gray: var(--gray);
+  --color-gray-light: var(--gray-light);
+  --color-gray-dark: var(--gray-dark);
+  --color-success: var(--success);
+  --color-error: var(--error);
+  --font-sans: "Public Sans", var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+/* ==================== 背景样式 ==================== */
+body {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: "Public Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+  /* Subtle radial gradient + noise effect via pseudo element */
+}
+
+/* Noise overlay for premium feel */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(255,159,47,0.03) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 80%, rgba(255,159,47,0.02) 0%, transparent 40%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ==================== 主卡片样式 ==================== */
+.panel {
+  background: var(--card-bg);
+  border: 1px solid rgba(255,255,255,0.04);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.6);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle top highlight */
+.panel::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+}
+
+/* ==================== CTA 按钮（重做） ==================== */
+.btn-primary {
+  background: linear-gradient(135deg, #FF8A00 0%, #FFB347 100%);
+  color: var(--white);
+  border: none;
+  border-radius: 12px;
+  height: 48px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  box-shadow:
+    0 4px 20px rgba(255,138,0,0.25),
+    inset 0 1px 0 rgba(255,255,255,0.2);
+  position: relative;
+}
+
+.btn-primary:hover:not(:disabled) {
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+  box-shadow:
+    0 6px 25px rgba(255,138,0,0.35),
+    inset 0 1px 0 rgba(255,255,255,0.25);
+}
+
+.btn-primary:disabled {
+  background: #2A2D33;
+  color: var(--text-tertiary);
+  box-shadow: none;
+  cursor: not-allowed;
+  opacity: 1;
+}
+
+.btn-secondary {
+  background: var(--input-bg);
+  color: var(--text-secondary);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 10px;
+  transition: all 0.2s ease;
+}
+
+.btn-secondary:hover:not(:disabled) {
+  border-color: rgba(255,159,47,0.3);
+  color: var(--accent-primary);
+}
+
+/* ==================== 输入框样式 ==================== */
+.input {
+  background: var(--input-bg);
+  border: 1px solid rgba(255,255,255,0.06);
+  color: var(--text-primary);
+  border-radius: 10px;
+  padding: 14px 16px;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.input:focus {
+  border-color: var(--accent-primary);
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(255,159,47,0.15);
+}
+
+/* Focus shimmer animation - encryption visual */
+.input:focus::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,159,47,0.08), transparent);
+  animation: shimmer 2s ease-in-out infinite;
+  pointer-events: none;
+  border-radius: 10px;
+}
+
+@keyframes shimmer {
+  0% { left: -100%; }
+  50% { left: 100%; }
+  100% { left: 100%; }
+}
+
+.input::placeholder {
+  color: var(--text-tertiary);
+}
+
+.input:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  background: #1A1C21;
+}
+
+.input:disabled::after {
+  animation: none;
+}
+
+/* ==================== Balance 数字排版 ==================== */
+.balance-number {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 2px;
+}
+
+.balance-integer {
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.balance-decimal {
+  font-size: 18px;
+  font-weight: 400;
+  color: var(--text-secondary);
+  opacity: 0.7;
+}
+
+.balance-unit {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  margin-left: 8px;
+}
+
+/* Encrypted label */
+.encrypted-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--text-tertiary);
+  padding: 4px 10px;
+  background: rgba(255,255,255,0.03);
+  border-radius: 6px;
+}
+
+/* ==================== Status Badge ==================== */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+  background: rgba(0, 200, 83, 0.1);
+  color: var(--success);
+  border: 1px solid rgba(0, 200, 83, 0.2);
+}
+
+.status-connected {
+  background: rgba(0, 200, 83, 0.1);
+  color: var(--success);
+  border: 1px solid rgba(0, 200, 83, 0.2);
+}
+
+.status-disconnected {
+  background: rgba(107, 114, 127, 0.1);
+  color: var(--text-tertiary);
+  border: 1px solid rgba(107, 114, 127, 0.2);
+}
+
+/* ==================== 数学公式背景 ==================== */
+.math-overlay {
+  position: absolute;
+  font-family: "Play", monospace;
+  color: rgba(255, 159, 47, 0.06);
+  font-size: 14px;
+  white-space: pre;
+  user-select: none;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ==================== Gradient Text ==================== */
+.gradient-text {
+  background: linear-gradient(135deg, var(--accent-dark) 0%, var(--accent-light) 50%, var(--white) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ==================== Sidebar ==================== */
+.sidebar {
+  background: var(--bg-secondary);
+  border-left: 1px solid rgba(255,255,255,0.04);
+}
+
+/* ==================== Animations ==================== */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.animate-pulse-slow {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+/* Slow drift for math overlay */
+@keyframes drift {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(3px, 2px); }
+}
+
+.animate-drift {
+  animation: drift 20s ease-in-out infinite;
+}
+
+/* ==================== Header Address Chip ==================== */
+.address-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 12px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 8px;
+  font-size: 13px;
+  color: var(--text-secondary);
+  transition: all 0.2s ease;
+}
+
+.address-chip:hover {
+  background: rgba(255,255,255,0.06);
+  border-color: rgba(255,255,255,0.1);
+}
+
+/* ==================== Scrollbar Styles ==================== */
+/* 自定义滚动条样式 */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 159, 47, 0.3);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 159, 47, 0.5);
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 159, 47, 0.3) rgba(255, 255, 255, 0.03);
+}
